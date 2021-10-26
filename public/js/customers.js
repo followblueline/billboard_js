@@ -5,26 +5,26 @@
 
 // https://github.com/naver/billboard.js/issues/286
 // separated the data to get transformed tick values
-var data = [
-  ["x", "2021-01-08 22:05:00", "2021-02-08 23:12:00", "2021-02-09 00:09:00", "2021-04-09 01:21:00"],
-  ["data1", 212, 133, 44, 38]
+let data = [
+	["x", "2021-01-01", "2021-01-02", "2021-01-03", "2021-01-04", "2021-01-05", "2021-01-06", "2021-01-07", "2021-01-08", "2021-01-09", "2021-01-10", "2021-01-11", "2021-01-12"],
+	["sample1", 30, 200, 100, 400, 150, 250, 30, 200, 100, 400, 150, 250],
+  ["sample2", 10, 20, 10, 40, 15, 25, null, 20, 10, 22, 15, 25]
 ];
 
 var chart = bb.generate({
   data: {
 		x: "x",
-		xFormat: '%Y-%m-%d %H:%M:%S',
-		columns: data
+		//xFormat: '%Y-%m-%d',
+		columns: data,
+    type: "line"
 	},
 	axis: {
 		x: {
 			type: "timeseries",
 			tick: {
-			    format: "%Y-%m-%d",
-		            values: data[0].concat().splice(1).map(function(v) {
-                		return v.substring(0,10) + " 00:00:00";
-		            })
-		    }
+        count: 4,
+        format: "%Y-%m-%d"
+      }
 		}
 	},
   zoom: {
@@ -36,8 +36,8 @@ var chart = bb.generate({
 
 chart.load({
   columns: [
-	  ["x", "2021-01-03 00:00:00"],
-	  ["EXTRA", 400]
+	  ["x", "2021-01-03"],
+	  ["EXTRA", 330]
   ]
 });
 
