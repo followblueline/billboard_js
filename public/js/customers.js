@@ -15,10 +15,33 @@ let data = [
 
 var chart = bb.generate({
   data: {
-		x: "x",
-		//xFormat: '%Y-%m-%d',
-		columns: data,
-    type: "line"
+    xs: {
+      'aaa': "x1",
+      'bbb': "x2",
+      'ccc': "x3"
+    },
+          xFormat: `%Y-%m-%d`,
+          columns: [
+      ["x1", "2021-01-01", "2021-02-01", "2021-03-01", "2021-04-01", "2021-05-01", "2021-06-01"],
+      ["x2", "2021-01-01", "2021-02-04", "2021-03-10", "2021-04-01", "2021-05-11", "2021-06-21"],
+      ["x3", "2021-01-01", "2021-02-11", "2021-03-16", "2021-04-01", "2021-05-22", "2021-06-19"],
+      ["aaa", 75, 120, 80, 90, 100, 111],
+      ["bbb", 50, 50, 95, 70, 150, 131],
+      ["ccc", 25, 70, 110, 90, 59, 75],
+    ],
+    type: 'line',
+    // can't group:
+    // The data bound to different xs, will make data to be rendered as in different x scales for each data series.
+    // well, this mainly comes from treating xs as different scale space even they're having same x tick values.
+    // https://github.com/naver/billboard.js/issues/2098
+    // stacking sample https://github.com/naver/billboard.js/issues/392
+    // groups: [
+    //   [
+    //     "aaa",
+    //     "bbb",
+    //     "ccc"
+    //   ]
+    // ]
 	},
 	axis: {
 		x: {
@@ -38,19 +61,19 @@ var chart = bb.generate({
       }
 		}
 	},
-  tooltip: {
-    format: {
-      title: function(d) {
-        // d = Date obj
-		    return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
-      },
-      value: function(value, ratio, id) {
-        // var format = id === "sample1" ? 'S1: '+ d3.format(',') : 'Other: ' + d3.format(',');
-        var format = id === "sample1" ? d3.format(',') : d3.format('$');
-        return format(value);
-      }
-    }
-  },
+  // tooltip: {
+  //   format: {
+  //     title: function(d) {
+  //       // d = Date obj
+	// 	    return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+  //     },
+  //     value: function(value, ratio, id) {
+  //       // var format = id === "sample1" ? 'S1: '+ d3.format(',') : 'Other: ' + d3.format(',');
+  //       var format = id === "sample1" ? d3.format(',') : d3.format('$');
+  //       return format(value);
+  //     }
+  //   }
+  //},
   zoom: {
     enabled: true, // for ESM specify as: zoom()
     type: "drag"
@@ -58,11 +81,11 @@ var chart = bb.generate({
   bindto: "#dragZoom"
 });
 
-chart.load({
-  columns: [
-	  ["x", "2021-01-03"],
-	  ["EXTRA", 330]
-  ]
-});
+// chart.load({
+//   columns: [
+// 	  ["x", "2021-01-03"],
+// 	  ["EXTRA", 330]
+//   ]
+// });
 
 export default chart;
