@@ -99,6 +99,8 @@ let config = {
                         chart1.data.datasets[0].data = blacklist.filter(x => x.epoch >= start && x.epoch <= end);
                         chart1.data.datasets[1].data = whitelist.filter(x => x.epoch >= start && x.epoch <= end);
                         chart1.data.datasets[2].data = none.filter(x => x.epoch >= start && x.epoch <= end);
+                        // change scale
+                        //chart1.config.options.scales.x.time.unit = 'month'
                         chart1.update();
                     }, 200)
                 }
@@ -124,8 +126,9 @@ let config = {
                 ticks: {
                     callback: function(value, index, values) {
                         // only integers
-                        if (value % 1 === 0)
-                        return value;
+                        if (value % 1 === 0){
+                            return value;
+                        }
                     }
                 }
             },
@@ -135,11 +138,11 @@ let config = {
 
 chart1 = new Chart(ctx1, config);
 
-function dateToISOdateString(date) {
-if (!date){
-    return null;
-}
-return date.getFullYear() +'-'+ (date.getMonth() +1).toString().padStart(2,'0') +'-'+ date.getDate().toString().padStart(2,'0');
+    function dateToISOdateString(date) {
+    if (!date){
+        return null;
+    }
+    return date.getFullYear() +'-'+ (date.getMonth() +1).toString().padStart(2,'0') +'-'+ date.getDate().toString().padStart(2,'0');
 }
 
 export default { chart1 }
