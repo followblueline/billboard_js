@@ -13,6 +13,7 @@ for(let i=0, j=data.length; i<j;i++){
     let curr = data[i];
     curr.time = curr.time.substring(0,10) + 'T00:00:00Z'
     let dateObj = new Date(curr.time);
+    curr.date = dateObj;
     curr.epoch = dateObj.getTime();
     if (curr.type == 'blacklist'){
         blacklist.push(curr);
@@ -31,7 +32,7 @@ let chartData = {
       data: blacklist,//data.filter(x => x.type == 'blacklist'),
       backgroundColor: colors[0],
       parsing: {
-        xAxisKey: 'epoch',
+        xAxisKey: 'date', // date object
         yAxisKey: 'count'
       }
     }, {
@@ -39,7 +40,7 @@ let chartData = {
       data: whitelist,//data.filter(x => x.type == 'whitelist'),
       backgroundColor: colors[1],
       parsing: {
-        xAxisKey: 'time',
+        xAxisKey: 'epoch', // milliseconds from getTime()
         yAxisKey: 'count'
       }
     }, {
@@ -47,7 +48,7 @@ let chartData = {
       data: none,//data.filter(x => x.type == 'none'),
       backgroundColor: colors[2],
       parsing: {
-        xAxisKey: 'time',
+        xAxisKey: 'time', // ISO date format
         yAxisKey: 'count'
       }
     }]
